@@ -22,25 +22,25 @@
 通过交互式安装器选择 skill、目标 agent 和安装范围：
 
 ```bash
-npx skills@latest add <owner>/skills
+npx skills@latest add NanoBei/skills
 ```
 
 只查看可用的 skills：
 
 ```bash
-npx skills@latest add <owner>/skills --list
+npx skills@latest add NanoBei/skills --list
 ```
 
 将全部 skills 全局安装到 Claude Code：
 
 ```bash
-npx skills@latest add <owner>/skills --skill '*' --agent claude-code --global
+npx skills@latest add NanoBei/skills --skill '*' --agent claude-code --global
 ```
 
 将全部 skills 全局安装到 Codex：
 
 ```bash
-npx skills@latest add <owner>/skills --skill '*' --agent codex --global
+npx skills@latest add NanoBei/skills --skill '*' --agent codex --global
 ```
 
 更新已安装的 skills：
@@ -48,8 +48,6 @@ npx skills@latest add <owner>/skills --skill '*' --agent codex --global
 ```bash
 npx skills@latest update
 ```
-
-将 `<owner>` 替换为本仓库发布后的 GitHub 用户名。
 
 ## 致谢
 
