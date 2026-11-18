@@ -10,6 +10,8 @@
 | Skill | 用途 |
 | --- | --- |
 | [`grill-me`](./skills/grill-me/SKILL.md) | 发现隐含决定，完整澄清想法并确认共同理解。 |
+| [`grill-me-docs`](./skills/grill-me-docs/SKILL.md) | 追问需求或技术方案直到达成共识，并把结论沉淀到项目文档。 |
+| [`harness-creator`](./skills/harness-creator/SKILL.md) | 为仓库搭建 AI 协作 harness：AGENTS.md、README、PROGRESS 及 PRODUCT / ARCHITECTURE 文档模板。 |
 | [`to-spec`](./skills/to-spec/SKILL.md) | 将当前已确认的功能讨论沉淀为可交接的任务规格。 |
 | [`project-docs`](./skills/project-docs/SKILL.md) | 审计项目文档需求，并按确认范围补齐基础文档。 |
 | [`prototype`](./skills/prototype/SKILL.md) | 用可丢弃原型验证交互、状态或设计方向。 |
