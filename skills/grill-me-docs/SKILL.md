@@ -32,7 +32,7 @@ disable-model-invocation: true
 
 ## 网页作答
 
-每轮先在终端按上面格式完整输出问题，再把 [answer.html](./answer.html) 复制为系统临时目录下的 `grill-answer.html`（每轮覆盖，只替换 `<script id="data">` 的 JSON，格式见文件内注释；内容与终端逐字一致，不改写），不自动打开浏览器，在本轮末尾附一行：
+每轮先把 [answer.html](./answer.html) 复制为系统临时目录下的 `grill-answer.html`（每轮覆盖，只替换 `<script id="data">` 的 JSON，格式见文件内注释；内容与终端逐字一致，不改写），不自动打开浏览器；再在终端按上面格式完整输出问题，末尾附一行：
 
 📝 网页作答：`file:///<文件绝对路径>`（打开作答，点「复制答案」后粘贴回来）
 
