@@ -34,5 +34,5 @@ disable-model-invocation: true
 
 用户确认达成共识后：
 
-1. 列出结论，每条标明拟写入位置：需求 → `docs/PRODUCT.md`；技术/架构 → `docs/ARCHITECTURE.md`；需验证的技术方案 → `PROGRESS.md` 验证任务；项目约定 → `AGENTS.md`「项目约定」；其他问用户
+1. 列出结论，每条标明拟写入位置：需求 → `docs/PRODUCT.md`；技术/架构 → `docs/ARCHITECTURE.md`；需验证的技术方案 → `PROGRESS.md` 验证任务；其他问用户
 2. 用户确认后再写入；目标文档不存在时，问用户写到哪
