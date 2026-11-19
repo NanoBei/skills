@@ -52,11 +52,13 @@
   :root {
     --bg: #f6f7f9; --card: #fff; --text: #1d1f23; --muted: #6b7078;
     --line: #e3e5e8; --accent: #2f6fed; --accent-soft: #eaf1ff; --ok: #1f9d55;
+    --warn: #b45309;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #15171a; --card: #1e2125; --text: #e7e9ec; --muted: #9aa0a8;
       --line: #2e3238; --accent: #6b9bff; --accent-soft: #1f2a40; --ok: #3ccf7f;
+      --warn: #f5a524;
     }
   }
   * { box-sizing: border-box; }
@@ -72,12 +74,16 @@
   .q h2 .id { color: var(--accent); margin-right: 6px; }
   .body { white-space: pre-wrap; margin: 0 0 10px; }
   .rec { border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0; padding: 8px 12px; margin: 12px 0 4px; white-space: pre-wrap; }
-  label.opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; margin: 8px 0;
+  label.opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; margin: 6px 0;
     border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
   label.opt:hover { border-color: var(--accent); }
   label.opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
-  label.opt input { margin-top: 5px; flex: none; }
-  label.opt b { color: var(--accent); margin-right: 4px; }
+  label.opt input { margin-top: 5px; flex: none; accent-color: var(--accent); }
+  label.opt b { margin-right: 6px; }
+  .chg { display: none; font-size: 12px; font-weight: 500; color: var(--warn); margin-left: 8px; }
+  .q.changed .chg { display: inline-block; }
+  #diff { color: var(--muted); font-size: 13px; }
+  #diff.warn { color: var(--warn); font-weight: 600; }
   .tag { font-size: 12px; color: var(--accent); margin-left: 4px; }
   textarea {
     width: 100%; margin-top: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px;
@@ -106,7 +112,7 @@
   <div id="list"></div>
   <pre id="preview"></pre>
 </main>
-<footer><div class="bar"><button id="copy">复制答案</button><span id="status"></span></div></footer>
+<footer><div class="bar"><button id="copy">复制答案</button><span id="diff"></span><span id="status"></span></div></footer>
 
 <script>
 const data = JSON.parse(document.getElementById('data').textContent);
@@ -124,7 +130,7 @@ const el = (tag, cls, text) => {
 data.questions.forEach((q, i) => {
   const box = el('section', 'q');
   const h = el('h2');
-  h.append(el('span', 'id', q.id), q.title);
+  h.append(el('span', 'id', q.id), q.title, el('span', 'chg', '已修改'));
   box.append(h);
   if (q.body) box.append(el('p', 'body', q.body));
 
@@ -145,12 +151,12 @@ data.questions.forEach((q, i) => {
     const lab = el('label', 'opt');
     const r = document.createElement('input');
     r.type = 'radio'; r.name = name; r.value = c.value; r.checked = c.rec;
-    r.addEventListener('change', () => custom.classList.toggle('show', r.value === '__custom'));
+    r.addEventListener('change', () => { custom.classList.toggle('show', r.value === '__custom'); refresh(); });
     const span = el('span');
-    if (c.key) span.append(el('b', null, c.key + '.'));
+    if (c.key) span.append(el('b', null, c.key));
     span.append(c.label);
     lab.append(r, span);
-    if (c.rec) lab.querySelector('span').append(el('span', 'tag', '推荐'));
+    if (c.rec) span.append(el('span', 'tag', '推荐'));
     box.append(lab);
   });
   box.append(custom);
@@ -160,6 +166,9 @@ data.questions.forEach((q, i) => {
   note.placeholder = '补充说明（可选）';
   box.append(note);
 
+  const recValue = choices.find(c => c.rec).value;
+  q._changed = () => box.querySelector(`input[name="${name}"]:checked`)?.value !== recValue;
+  q._box = box;
   q._get = () => {
     const v = box.querySelector(`input[name="${name}"]:checked`)?.value;
     let ans;
@@ -172,6 +181,15 @@ data.questions.forEach((q, i) => {
   };
   list.append(box);
 });
+
+function refresh() {
+  let n = 0;
+  data.questions.forEach(q => { const c = q._changed(); q._box.classList.toggle('changed', c); if (c) n++; });
+  const d = document.getElementById('diff');
+  d.textContent = n ? `${n} 题偏离推荐` : '全部按推荐';
+  d.classList.toggle('warn', n > 0);
+}
+refresh();
 
 async function copyText(text) {
   try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
