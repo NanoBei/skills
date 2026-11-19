@@ -8,21 +8,21 @@ disable-model-invocation: true
 
 模板在 [templates/](./templates/)：
 
-| 模板 | 写到 |
-|---|---|
-| `templates/AGENTS.md` | `AGENTS.md` |
-| `templates/CLAUDE.md` | `CLAUDE.md` |
-| `templates/README.md` | `README.md` |
-| `templates/PROGRESS.md` | `PROGRESS.md` |
-| `templates/PRODUCT.md` | `docs/PRODUCT.md` |
-| `templates/ARCHITECTURE.md` | `docs/ARCHITECTURE.md` |
+| 模板 | 写到 | 含义 |
+|---|---|---|
+| `templates/AGENTS.md` | `AGENTS.md` | AI 入口：开工流程、文档索引、工作规则 |
+| `templates/CLAUDE.md` | `CLAUDE.md` | 让 Claude Code 读取 AGENTS.md |
+| `templates/README.md` | `README.md` | 项目简介和快速开始（给人看） |
+| `templates/PROGRESS.md` | `PROGRESS.md` | 任务清单、验收标准和进度 |
+| `templates/PRODUCT.md` | `docs/PRODUCT.md` | 产品目标、功能及验收标准 |
+| `templates/ARCHITECTURE.md` | `docs/ARCHITECTURE.md` | 仓库结构、模块边界、关键决策 |
 
 ## 流程
 
-1. **检查**：当前目录是否为 git 仓库；上表目标文件是否存在。
+1. **检查**：用 `git rev-parse --is-inside-work-tree` 判断是否 git 仓库（以命令结果为准，不凭目录猜）；上表目标文件是否存在。
 2. **建议 git**（仅非 git 仓库时）：强烈建议先运行 `git init`，原因：每个任务完成后要提交，便于回滚和追溯。征得用户同意后再执行；用户不同意则跳过，继续后续步骤。
 3. **创建**：不存在的按模板创建；已存在的不动。
-4. **输出结果**：用表格列出每个文件及状态（新建 / 已存在）；如未初始化 git，在表格下再提醒一次。
+4. **输出结果**：用表格列出每个文件、状态（新建 / 已存在），含义取上表；如未初始化 git，在表格下再提醒一次。
 5. **给出建议**：按下面要点，用自己的话给出简洁的下一步建议（几行即可，不照抄）。
 
 ## 建议要点
