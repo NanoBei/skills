@@ -30,6 +30,10 @@ disable-model-invocation: true
 ➡️ <你的推荐答案>
 ```
 
+## 网页作答（可选）
+
+用户说「用网页答」时，此后每轮：终端照常输出问题；同时把 [answer.html](./answer.html) 复制为系统临时目录下的 `grill-answer.html`（每轮覆盖），只替换其中 `<script id="data">` 的 JSON（格式见文件内注释），再用系统命令打开（macOS `open`、Linux `xdg-open`、Windows `start`）；打不开就给出文件路径让用户自己打开。用户在网页作答后会把汇总粘贴回来，按正常流程继续。
+
 ## 沉淀结论
 
 用户确认达成共识后：
